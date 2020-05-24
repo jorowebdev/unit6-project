@@ -13,8 +13,8 @@ let phrases = [
   'And I dont wanna miss a thing',
   'Now that your rose is in bloom a light hits the gloom on the grey',
   'I dont want to wait for our lives to be over',
-  'He belongs to me the boy is mine',
-]
+  'He belongs to me the boy is mine'
+];
 
 console.log(startOverlay);
 console.log(startButton);
@@ -24,3 +24,17 @@ console.log(phrase);
 startButton.addEventListener('click', () => {
   startOverlay.style.visibility = 'hidden';
 });
+
+const getRandomPhraseAsArray = arr => {
+  // Get length of array
+  const arrayLength = arr.length;
+  // Get random number based on length of array
+  const randomNumber = Math.floor(Math.random() * arrayLength);
+  // Get phrase from array via random random number
+  const randomPhrase = arr[randomNumber];
+  // Split random phrase and save characters to array
+  const characterArray = randomPhrase.split("");
+  return characterArray;
+};
+
+console.log(getRandomPhraseAsArray(phrases));
