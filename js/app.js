@@ -2,6 +2,7 @@ const startOverlay = document.querySelector('#overlay');
 const startButton = document.querySelector('.btn__reset');
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
+const phraseUl = phrase.firstElementChild;
 let missed = 0;
 
 let phrases = [
@@ -20,6 +21,7 @@ console.log(startOverlay);
 console.log(startButton);
 console.log(qwerty);
 console.log(phrase);
+console.log(phraseUl);
 
 startButton.addEventListener('click', () => {
   startOverlay.style.visibility = 'hidden';
@@ -37,4 +39,22 @@ const getRandomPhraseAsArray = arr => {
   return characterArray;
 };
 
-console.log(getRandomPhraseAsArray(phrases));
+const addPhrasetoDisplay = arr => {
+  // Loop thru each character in characterArray
+  for (i = 0; i < arr.length; i += 1) {
+    // Create a list item for each character
+    let newListItem = document.createElement('LI');
+    newListItem.textContent = arr[i];
+    // If list item is letter, add .letter class
+    if (arr[i] === " ") {
+      newListItem.className = 'space';
+    } else {
+      newListItem.className = 'letter';
+    };
+    phraseUl.appendChild(newListItem);
+  };
+  return arr;
+};
+
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhrasetoDisplay(phraseArray);
