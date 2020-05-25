@@ -56,5 +56,22 @@ const addPhrasetoDisplay = arr => {
   return arr;
 };
 
+const checkLetter = button => {
+  let match = null;
+  const letterClassListItems = phraseUl.children;
+  console.log(letterClassListItems);
+  for (i = 0; i < letterClassListItems.length; i += 1) {
+    const lowerCaseLetter = letterClassListItems[i].textContent.toLowerCase();
+    console.log(lowerCaseLetter);
+    if (lowerCaseLetter === button) {
+      console.log('match');
+      letterClassListItems[i].className += ' show';
+      match = button;
+    }
+  };
+  return match;
+};
+
+
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhrasetoDisplay(phraseArray);
