@@ -1,8 +1,10 @@
 const startOverlay = document.querySelector('#overlay');
 const startButton = document.querySelector('.btn__reset');
 const qwerty = document.querySelector('#qwerty');
+const keyrow = document.querySelectorAll('.keyrow');
 const phrase = document.querySelector('#phrase');
 const phraseUl = phrase.firstElementChild;
+const scoreboard = document.querySelector('#scoreboard ol');
 let missed = 0;
 
 let phrases = [
@@ -16,12 +18,6 @@ let phrases = [
   'I dont want to wait for our lives to be over',
   'He belongs to me the boy is mine'
 ];
-
-console.log(startOverlay);
-console.log(startButton);
-console.log(qwerty);
-console.log(phrase);
-console.log(phraseUl);
 
 startButton.addEventListener('click', () => {
   startOverlay.style.visibility = 'hidden';
@@ -59,18 +55,39 @@ const addPhrasetoDisplay = arr => {
 const checkLetter = button => {
   let match = null;
   const letterClassListItems = phraseUl.children;
-  console.log(letterClassListItems);
   for (i = 0; i < letterClassListItems.length; i += 1) {
     const lowerCaseLetter = letterClassListItems[i].textContent.toLowerCase();
-    console.log(lowerCaseLetter);
     if (lowerCaseLetter === button) {
-      console.log('match');
       letterClassListItems[i].className += ' show';
       match = button;
     }
   };
   return match;
 };
+
+qwerty.addEventListener('click', () => {
+  const clickedButton = event.target;
+  const clickedButtonText = event.target.textContent;
+  const parentOfClickedButton = clickedButton.parentNode.className;
+  const classListClickedButton = clickedButton.classList;
+  let letterFound = '';
+  console.log(clickedButton);
+  console.log(clickedButtonText);
+  console.log(parentOfClickedButton);
+  console.log(classListClickedButton);
+  if (parentOfClickedButton === 'keyrow' && !classListClickedButton.contains('chosen')) {
+    console.log('keyrow match');
+    clickedButton.className += 'chosen';
+    clickedButton.disabled = true;
+    letterFound = checkLetter(clickedButtonText);
+    console.log(letterFound);
+  }
+  if (!letterFound) {
+    scoreboard.removeChild(scoreboard.lastElementChild);
+    missed += 1;
+    console.log(missed);
+  }
+});
 
 
 const phraseArray = getRandomPhraseAsArray(phrases);
