@@ -65,6 +65,20 @@ const checkLetter = button => {
   return match;
 };
 
+const checkWin = () => {
+  const checkLetterClass = phraseUl.querySelectorAll('.letter');
+  const checkShowClass = phraseUl.querySelectorAll('.show');
+  if (checkLetterClass.length === checkShowClass.length) {
+    startOverlay.className += ' win';
+    startOverlay.style.display = 'flex';
+    startOverlay.style.visibility = 'visible';
+  } else if (missed > 4) {
+    startOverlay.className += ' lose';
+    startOverlay.style.display = 'flex';
+    startOverlay.style.visibility = 'visible';
+  }
+};
+
 qwerty.addEventListener('click', () => {
   const clickedButton = event.target;
   const clickedButtonText = event.target.textContent;
@@ -82,11 +96,14 @@ qwerty.addEventListener('click', () => {
     letterFound = checkLetter(clickedButtonText);
     console.log(letterFound);
   }
-  if (!letterFound) {
+  if (parentOfClickedButton === 'keyrow' && !letterFound) {
     scoreboard.removeChild(scoreboard.lastElementChild);
     missed += 1;
     console.log(missed);
   }
+  setTimeout(() => {
+    checkWin();
+  }, 3000);
 });
 
 
