@@ -1,4 +1,5 @@
 const startOverlay = document.querySelector('#overlay');
+const startTitle = startOverlay.querySelector('.title');
 const startButton = document.querySelector('.btn__reset');
 const qwerty = document.querySelector('#qwerty');
 const keyrow = document.querySelectorAll('.keyrow');
@@ -35,6 +36,7 @@ const getRandomPhraseAsArray = arr => {
   return characterArray;
 };
 
+
 const addPhrasetoDisplay = arr => {
   // Loop thru each character in characterArray
   for (i = 0; i < arr.length; i += 1) {
@@ -68,15 +70,22 @@ const checkLetter = button => {
 const checkWin = () => {
   const checkLetterClass = phraseUl.querySelectorAll('.letter');
   const checkShowClass = phraseUl.querySelectorAll('.show');
+  const loseText = document.createElement('H3');
   if (checkLetterClass.length === checkShowClass.length) {
     startOverlay.className += ' win';
     startOverlay.style.display = 'flex';
+    startTitle.insertAdjacentHTML('afterend', `<body>"${phraseUsed}"</body>
+      <h3>You know your 90s tunes, homeskillet. Definitely give it another go.</h3>`);
+    startTitle.innerHTML = "Awesome!";
     startOverlay.style.visibility = 'visible';
   } else if (missed > 4) {
     startOverlay.className += ' lose';
     startOverlay.style.display = 'flex';
+    startTitle.insertAdjacentHTML('afterend', `<h3>Sorry, homeslice. Definitely give it another go.</h3>`);
+    startTitle.innerHTML = "Bummer!";
     startOverlay.style.visibility = 'visible';
   }
+  return;
 };
 
 qwerty.addEventListener('click', () => {
@@ -85,27 +94,23 @@ qwerty.addEventListener('click', () => {
   const parentOfClickedButton = clickedButton.parentNode.className;
   const classListClickedButton = clickedButton.classList;
   let letterFound = '';
-  console.log(clickedButton);
-  console.log(clickedButtonText);
-  console.log(parentOfClickedButton);
-  console.log(classListClickedButton);
   if (parentOfClickedButton === 'keyrow' && !classListClickedButton.contains('chosen')) {
-    console.log('keyrow match');
     clickedButton.className += 'chosen';
     clickedButton.disabled = true;
     letterFound = checkLetter(clickedButtonText);
-    console.log(letterFound);
   }
   if (parentOfClickedButton === 'keyrow' && !letterFound) {
     scoreboard.removeChild(scoreboard.lastElementChild);
     missed += 1;
-    console.log(missed);
   }
   setTimeout(() => {
     checkWin();
-  }, 3000);
+  }, 2000);
 });
+
 
 
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhrasetoDisplay(phraseArray);
+
+const phraseUsed = phraseArray.join().replace(/,/g, '');
