@@ -98,7 +98,6 @@ const resetGame = () => {
   phraseArray = getRandomPhraseAsArray(phrases);
   addPhrasetoDisplay(phraseArray);
   let newPhraseUsed = phraseArray.join().replace(/,/g, '');
-  console.log(newPhraseUsed);
   // Hide overlay and remove win/lose elements
   startOverlay.style.visibility = 'hidden';
   if (startOverlay.classList.contains('win')) {
@@ -151,7 +150,7 @@ qwerty.addEventListener('click', () => {
 /*
 Added a setTimeout function to delay the overlay so the player can view the completed phrases.
 In it's current form, the code is adding too many instances of the appended win/lose HTML elements.
-Will comment out for now, and revisit in the future when I have a better understandiong of setTimeout. 
+Will comment out for now, and revisit in the future when I have a better understandiong of setTimeout.
 */
 //  setTimeout(() => {
 //    checkWin();
