@@ -112,10 +112,8 @@ const resetGame = () => {
   if (scoreboard.childElementCount < 5) {
     scoreboard.innerHTML = ' ';
     for (i = 0; i <= 4; i += 1) {
-      let newHeart = document.createElement('LI');
-      newHeart.className = 'tries';
-      newHeart.innerHTML = ` <img src="images/liveHeart.png" height="35px" width="30px">`;
-      scoreboard.appendChild(newHeart);
+      scoreboard.innerHTML += '<li class="tries"><img src="images/liveHeart.png" height="35px" width="30px"></li>';
+      scoreboard.lastElementChild.style.marginRight = '5px';
     }
   }
   // Reset keyboard by enabling buttons and removing chose class
