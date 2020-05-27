@@ -146,15 +146,7 @@ qwerty.addEventListener('click', () => {
     scoreboard.removeChild(scoreboard.lastElementChild);
     missed += 1;
   }
-  checkWin();
-/*
-Added a setTimeout function to delay the overlay so the player can view the completed phrases.
-In it's current form, the code is adding too many instances of the appended win/lose HTML elements.
-Will comment out for now, and revisit in the future when I have a better understandiong of setTimeout.
-*/
-//  setTimeout(() => {
-//    checkWin();
-//  }, 2000);
+  setTimeout(checkWin(), 3000);
 });
 
 let phraseArray = getRandomPhraseAsArray(phrases);
